@@ -104,18 +104,13 @@ FingerCode Manim/
 
 > Visualize Step 4 — Multi-directional filtering of the normalized image.
 
-- [ ] **5.1** Show the single normalized polar-grid as the starting state.
-- [ ] **5.2** Animate the single grid **cloning** itself into multiple copies (one per filter channel) arranged in a row or 2×N grid layout using `VGroup` + `arrange`.
-- [ ] **5.3** Apply distinct visual textures to each copy to represent different filter orientations:
-  - Diagonal hatching patterns or wavy sinusoidal overlays drawn with `ParametricFunction`.
-  - Vary hue slightly per filter (e.g., blues, purples, teals) to distinguish channels.
-- [ ] **5.4** Show a Gabor kernel visualized as a 2D heatmap (optional, small inset):
-  - Use a grid of `Square` cells colored by intensity.
-  - Animate an `Arrow` sliding the kernel across the image (convolution metaphor).
-- [ ] **5.5** Label each filtered grid with its orientation angle (e.g., 0°, 45°, 90°, 135°).
-- [ ] **5.6** Add caption: *"A bank of F Gabor filters extracts ridge texture at F orientations."*
-- [ ] **5.7** Hold frame, then transition.
-
+- [x] **5.1** Normalised fingerprint + full polar grid + uniform-teal sectors re-established (pre-dimmed 30%) as starting state.
+- [x] **5.2** FadeOut then 4 grid-card objects in arrange_in_grid(rows=2, cols=2); each is a mini polar grid in its channel colour.
+- [x] **5.3** Sinusoidal ParametricFunction stripes at each filter angle; hues: teal 0deg, purple 45deg, orange 90deg, green 135deg. LaggedStart lag_ratio=0.3.
+- [x] **5.4** Gabor kernel heatmap (NxN Square cells by signed value); sliding Arrow+label for convolution metaphor.
+- [x] **5.5** Orientation labels (0deg, 45deg, 90deg, 135deg) in matching hue below each card.
+- [x] **5.6** Caption: A bank of F=4 Gabor filters, 4 orientations, 4x32=128 filtered values.
+- [x] **5.7** 2.5s hold; fade out 1.0s. *(Rendered to media/videos/s4_filtering/480p15/FilteringScene.mp4)*
 ---
 
 ## Phase 6 — Scene 5: Feature Extraction (FingerCode)
