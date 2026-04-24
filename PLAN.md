@@ -130,21 +130,21 @@ FingerCode Manim/
 
 > Visualize Step 6 — Euclidean distance comparison and decision.
 
-- [ ] **7.1** Display two FingerCode vectors side-by-side (or stacked):
+- [x] **7.1** Display two FingerCode vectors side-by-side (or stacked):
   - **Top:** Template vector (from database) — labeled `"Template T"`.
   - **Bottom:** Input vector (from query image) — labeled `"Input I"`.
   - Each vector rendered as a row of colored `Rectangle` tiles (reuse Phase 6 style).
-- [ ] **7.2** Animate glowing connector lines between corresponding tiles of the two vectors using `Line` + a glow effect (`set_stroke(color=YELLOW, width=…)`).
-- [ ] **7.3** Show component differences animating into squared values, then summed (brief schematic).
-- [ ] **7.4** Display the Euclidean distance formula using `MathTex`:
+- [x] **7.2** Animate glowing connector lines between corresponding tiles of the two vectors using `Line` + a glow effect (`set_stroke(color=YELLOW, width=…)`).
+- [x] **7.3** Show component differences animating into squared values, then summed (brief schematic).
+- [x] **7.4** Display the Euclidean distance formula using `MathTex`:
   ```
   d(T, I) = \sqrt{\sum_{i=1}^{n} (T_i - I_i)^2}
   ```
-- [ ] **7.5** Animate a distance meter / progress bar filling up to the computed value.
-- [ ] **7.6** Branch into two outcomes:
+- [x] **7.5** Animate a distance meter / progress bar filling up to the computed value.
+- [x] **7.6** Branch into two outcomes:
   - If `d < threshold` → green checkmark + `"MATCH ✓"` text (use `GrowFromCenter`).
   - If `d ≥ threshold` → red X + `"NO MATCH ✗"` text.
-- [ ] **7.7** Hold on the final decision frame, then fade to the outro.
+- [x] **7.7** Hold on the final decision frame, then fade to the outro.
 
 ---
 

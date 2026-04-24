@@ -59,6 +59,7 @@ from scenes.s3_normalization    import NormalizationScene
 from scenes.s4_filtering        import FilteringScene
 from scenes.s5_feature_extraction import FeatureExtractionScene
 from scenes.s6_matching         import MatchingScene
+from scenes.s7_outro            import OutroScene
 
 
 # ---------------------------------------------------------------------------
@@ -93,6 +94,7 @@ class FingerCodeVideo(Scene):
         self._play_subscene(FilteringScene)
         self._play_subscene(FeatureExtractionScene)
         self._play_subscene(MatchingScene)
+        self._play_subscene(OutroScene)
 
     # ---------------------------------------------------------------------- #
     # Helper                                                                   #
