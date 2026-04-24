@@ -52,23 +52,30 @@ def load_fingerprint(path: str | Path, height: float = 5.0) -> ImageMobject:
 def get_core_point(
     path: str | Path,
     *,
-    method: str = "brightest_valley",
+    method: str = "ridge_centroid",
+    display_height: float = 5.0,
 ) -> tuple[float, float]:
     """Estimate the core point of a fingerprint and return it as a Manim
     (x, y) coordinate pair.
 
     The coordinate is computed relative to the image centre so that it can be
     used directly with a Manim scene whose display height was set to
-    ``height`` (default 5.0 Manim units).
+    ``display_height``.
 
     Parameters
     ----------
     path:
         File-system path to the fingerprint image.
     method:
-        ``"brightest_valley"`` — locate the core as the darkest region near
-        the image centre (works well for black-ridge-on-white images).
+        ``"ridge_centroid"`` *(default)* — compute the weighted centroid of the
+        darkest ridge pixels within the central region of the image.  Works well
+        for AI-generated and real scanned fingerprints with dark ridges on a
+        light background.
         ``"centre"`` — simply return (0, 0), the canvas origin (safe fallback).
+    display_height:
+        The height in Manim units that the ``ImageMobject`` was given
+        (passed to ``set_height()``).  Must match the value used in the scene
+        to get pixel-accurate placement.
 
     Returns
     -------
@@ -81,7 +88,6 @@ def get_core_point(
     try:
         from PIL import Image  # Pillow is a Manim dependency
     except ImportError:
-        # Graceful fallback: return the centre of the canvas
         return (0.0, 0.0)
 
     path = Path(path)
@@ -90,32 +96,32 @@ def get_core_point(
 
     img = Image.open(path).convert("L")  # grayscale
     arr = np.array(img, dtype=np.float32)
-
-    # --- Crop to the central 40 % of the image to limit search area ---
     h, w = arr.shape
-    r0, r1 = int(h * 0.30), int(h * 0.70)
-    c0, c1 = int(w * 0.30), int(w * 0.70)
+
+    # --- Search within the central 50 % of the image ---
+    r0, r1 = int(h * 0.25), int(h * 0.75)
+    c0, c1 = int(w * 0.25), int(w * 0.75)
     patch = arr[r0:r1, c0:c1]
 
-    # Invert: ridges are dark → we want their density peak
-    inverted = 255.0 - patch
+    # Ridge pixels are dark (low intensity on a white background).
+    # Threshold at the 30th percentile to isolate the darkest ridge pixels.
+    thresh = float(np.percentile(patch, 30))
+    ridge_rows, ridge_cols = np.where(patch < thresh)
 
-    # Smooth with a Gaussian to find the density centre
-    from scipy.ndimage import gaussian_filter  # scipy is a Manim dep
-    smoothed = gaussian_filter(inverted, sigma=min(h, w) * 0.05)
-    local_row, local_col = np.unravel_index(np.argmax(smoothed), smoothed.shape)
+    if len(ridge_rows) == 0:
+        # No ridges found — fall back to image centre
+        return (0.0, 0.0)
 
-    # Convert back to full image coordinates
-    abs_row = r0 + local_row
-    abs_col = c0 + local_col
+    # Weighted centroid: pixels closer to black get higher weight
+    weights = thresh - patch[ridge_rows, ridge_cols]
+    abs_row = r0 + float(np.average(ridge_rows, weights=weights))
+    abs_col = c0 + float(np.average(ridge_cols, weights=weights))
 
-    # Map pixel coords → Manim world coords
-    # Manim places (0,0) at the image centre.
-    # We assume the ImageMobject was set to height=5.0.
-    display_height = 5.0
+    # --- Map pixel coords → Manim world coords ---
+    # Manim's (0, 0) is the image centre; y-axis points up.
     display_width = display_height * (w / h)
-
     x = (abs_col / w - 0.5) * display_width
-    y = -(abs_row / h - 0.5) * display_height  # y-axis is flipped
+    y = -(abs_row / h - 0.5) * display_height   # pixel y points down
 
     return (float(x), float(y))
+

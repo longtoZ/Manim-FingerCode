@@ -214,8 +214,10 @@ class ReferencePointScene(Scene):
         # ---------------------------------------------------------- #
         # 5. Crosshair lock-on at the estimated core point             #
         # ---------------------------------------------------------- #
-        core_x, core_y = get_core_point(ASSET_FP_QUERY)
-        core_world = np.array([core_x, core_y + FP_CENTER[1], 0])
+        core_x, core_y = get_core_point(ASSET_FP_QUERY, display_height=FP_HEIGHT)
+        # Shift by the scene's FP_CENTER offset so the dot lands on the
+        # fingerprint image which itself was moved to FP_CENTER
+        core_world = np.array([core_x + FP_CENTER[0], core_y + FP_CENTER[1], 0])
 
         crosshair = _build_crosshair(core_world)
         crosshair.set_opacity(0)
