@@ -117,20 +117,13 @@ FingerCode Manim/
 
 > Visualize Step 5 — Computing A.A.D. and assembling the feature vector.
 
-- [ ] **6.1** Zoom into a single filtered grid to focus on individual sectors.
-- [ ] **6.2** Animate each sector morphing / collapsing into a single numerical disc or colored tile:
-  - Use `Transform` from `ArcPolygon` → `Circle` (disc) with a number label inside.
-  - Discs colored by value magnitude (cool-to-warm colormap using `interpolate_color`).
-- [ ] **6.3** Show the A.A.D. formula using `MathTex`:
-  ```
-  A.A.D._k = \frac{1}{A} \sum_{x,y \in S_k} |I_k(x,y) - \mu_k|
-  ```
-  where *k* is the sector index.
-- [ ] **6.4** Animate all disc tiles assembling into a 1D feature vector bar (flattened into a horizontal sequence of colored rectangles).
-- [ ] **6.5** Label the assembled vector `"FingerCode Vector (F × R × S features)"`.
-- [ ] **6.6** Add caption contrasting the input (image) with the output (compact vector).
-- [ ] **6.7** Hold frame, then transition.
-
+- [x] **6.1** FP at 30%% + polar grid fades in at core_world.
+- [x] **6.2** 32 AnnularSectors colored by seeded AAD values cool-blue to warm-orange; LaggedStart sectors to discs.
+- [x] **6.3** MathTex AAD formula in gold-bordered panel top-right.
+- [x] **6.4** FP+grid fade out; LaggedStart discs to bar rectangles at y=0.
+- [x] **6.5** Label FingerCode Vector + sub-label 128 features; Brace under bar.
+- [x] **6.6** Caption about 128-D descriptor.
+- [x] **6.7** 2.5s hold; fade out. Rendered to media/videos/s5_feature_extraction/480p15/FeatureExtractionScene.mp4
 ---
 
 ## Phase 7 — Scene 6: Matching
