@@ -77,15 +77,13 @@ FingerCode Manim/
 
 > Visualize Step 2 — Polar-grid overlay expanding from the core.
 
-- [ ] **3.1** Retain the fingerprint image and the core-point dot from Scene 1.
-- [ ] **3.2** Use `grid_utils.build_polar_grid()` to construct the concentric-ring + radial-line structure (spiderweb).
-- [ ] **3.3** Animate the grid expanding outward from the core:
-  - Concentric rings grown with `Create` (one by one or simultaneously).
-  - Radial lines drawn with `Create` in a radial fan using `AnimationGroup` + `lag_ratio`.
-- [ ] **3.4** Label rings and sectors with small index annotations (optional, toggle-able).
-- [ ] **3.5** Add caption: *"The AOI is divided into R rings × S sectors = R×S cells."*
-- [ ] **3.6** Highlight one example sector by flashing it (`Indicate` or color change) to draw focus.
-- [ ] **3.7** Hold frame, then transition.
+- [x] **3.1** Fingerprint + core dot re-created at identical layout constants (FP_HEIGHT=4.8, FP_CENTER=UP×0.2) matching Scene 1.
+- [x] **3.2** `_build_rings()` and `_build_spokes()` helpers wrap `Arc`/`Line` geometry; `get_sector_region()` from `grid_utils` used for the highlight cell. `OUTER_RADIUS=2.1` to fit within the image.
+- [x] **3.3** Rings grow one-by-one with `LaggedStart(GrowFromCenter, lag_ratio=0.25)`; spokes fan out with `LaggedStart(Create, lag_ratio=0.09)`.
+- [x] **3.4** Ring labels (`r0`–`r4`) and sector labels (`s0`–`s7`) rendered via `_build_ring_labels()` / `_build_sector_labels()`; controlled by `SHOW_LABELS` class attribute.
+- [x] **3.5** Caption: *"The AOI is divided into 4 rings × 8 sectors = 32 cells, each capturing local ridge texture."*
+- [x] **3.6** Ring 1 / Sector 2 highlighted with gold fill pulse + callout arrow; fill fades back out.
+- [x] **3.7** 2.5 s narration hold; all elements fade out in 1.0 s. *(Rendered → `media/videos/s2_tessellation/480p15/TessellationScene.mp4`)*
 
 ---
 

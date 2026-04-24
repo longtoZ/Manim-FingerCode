@@ -54,7 +54,7 @@ ASSET_FP_TEMPLATE = "assets/fingerprint_template.png"
 # ---------------------------------------------------------------------------
 from scenes.s0_intro            import IntroScene
 from scenes.s1_reference_point  import ReferencePointScene
-# from scenes.s2_tessellation     import TessellationScene
+from scenes.s2_tessellation     import TessellationScene
 # from scenes.s3_normalization    import NormalizationScene
 # from scenes.s4_filtering        import FilteringScene
 # from scenes.s5_feature_extraction import FeatureExtractionScene
@@ -88,7 +88,7 @@ class FingerCodeVideo(Scene):
         # ------------------------------------------------------------------ #
         self._play_subscene(IntroScene)
         self._play_subscene(ReferencePointScene)
-        # self._play_subscene(TessellationScene)
+        self._play_subscene(TessellationScene)
         # self._play_subscene(NormalizationScene)
         # self._play_subscene(FilteringScene)
         # self._play_subscene(FeatureExtractionScene)
