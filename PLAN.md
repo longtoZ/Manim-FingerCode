@@ -91,19 +91,12 @@ FingerCode Manim/
 
 > Visualize Step 3 — Per-sector intensity normalization.
 
-- [ ] **4.1** Retain the tessellated fingerprint image from Scene 2.
-- [ ] **4.2** Sequentially (or in groups) highlight each sector using a color-wash overlay (`Rectangle` / `ArcPolygon` with fill opacity animation):
-  - Before: random-contrast shading (light/dark variation).
-  - After: uniform, standardized shading.
-- [ ] **4.3** Show a side-by-side mini histogram or grayscale bar (using `Rectangle` bars as a simple bar chart) for one sector:
-  - Left: skewed distribution → Right: normalized distribution.
-  - Use `Transform` to morph the bars into the normalized state.
-- [ ] **4.4** Add caption: *"Each sector is normalized: μ₀, σ₀² → uniform mean & variance."*
-- [ ] **4.5** Display the normalization formula using `MathTex`:
-  ```
-  G(x, y) = \mu_0 + \sigma_0 \cdot \frac{I(x,y) - \mu}{\sigma}
-  ```
-- [ ] **4.6** Hold frame, then transition.
+- [x] **4.1** Fingerprint (pre-dimmed to 30 %) + polar grid re-established at same FP_HEIGHT/FP_CENTER; `LaggedStart(FadeIn, lag_ratio=0.04)` fans 32 sector overlays in.
+- [x] **4.2** 32 `AnnularSector` overlays with seeded-random fills (`BEFORE_DARK` → `BEFORE_BRIGHT` via `interpolate_color`) simulate uneven local contrast; `LaggedStart(Transform, lag_ratio=0.035)` normalisation wave turns all to uniform teal.
+- [x] **4.3** Right-side histogram panel: `_build_bar_chart()` + `_build_histogram_panel()`; skewed "Before" bars `Transform` to Gaussian "After" bars simultaneously with the sector sweep.
+- [x] **4.4** Caption: *"Each sector is independently normalized: μ₀, σ₀² → uniform mean & variance."*
+- [x] **4.5** `MathTex(r"G(x,y) = \mu_0 + \sigma_0 \cdot \frac{I(x,y)-\mu}{\sigma}")` in a dark `RoundedRectangle` panel; plain-text `Text` fallback if LaTeX unavailable. *(LaTeX compiled successfully.)*
+- [x] **4.6** 2.5 s narration hold; all elements fade in 1.0 s. *(Rendered → `media/videos/s3_normalization/480p15/NormalizationScene.mp4`)*
 
 ---
 
