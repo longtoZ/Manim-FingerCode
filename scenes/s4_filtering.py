@@ -452,25 +452,54 @@ class FilteringScene(Scene):
         )
         self.wait(0.2)
 
-        # ── 8. Caption ─────────────────────────────────────────────────── #
-        caption = VGroup(
-            Text("A bank of F = 4 Gabor filters extracts ridge texture",
-                 font=FP_FONT, font_size=17, color=FP_TEXT_DIM),
-            Text("at 4 orientations → 4 × 32 = 128 filtered values.",
-                 font=FP_FONT, font_size=17, color=FP_TEXT_DIM),
-        ).arrange(DOWN, aligned_edge=LEFT, buff=0.08)
-        caption.next_to(pipeline, UP, buff=0.25)
+        # ── 8. Staged captions + definition card ───────────────────────── #
+        cap_1 = Text(
+            "Ridges have strong orientation patterns.",
+            font=FP_FONT, font_size=17, color=FP_TEXT_DIM,
+        )
+        cap_2 = Text(
+            "Gabor filters respond to a specific direction.",
+            font=FP_FONT, font_size=17, color=FP_TEXT_DIM,
+        )
+        cap_3 = Text(
+            "4 orientations × 32 cells = 128 filtered values.",
+            font=FP_FONT, font_size=17, color=FP_TEXT_DIM,
+        )
+        cap_1.next_to(pipeline, UP, buff=0.25)
+        cap_2.move_to(cap_1)
+        cap_3.move_to(cap_1)
 
-        self.play(FadeIn(caption, shift=UP * 0.1), run_time=0.7)
+        def_text = Text(
+            "Gabor filter = oriented band-pass",
+            font=FP_FONT, font_size=15, color=FP_TEXT_PRIMARY,
+        )
+        def_bg = RoundedRectangle(
+            width=def_text.width + 0.45,
+            height=def_text.height + 0.3,
+            corner_radius=0.12,
+            fill_color="#0d0d1a", fill_opacity=0.92,
+            stroke_color=FP_ACCENT_GOLD, stroke_width=1.2,
+        )
+        def_card = VGroup(def_bg, def_text)
+        def_text.move_to(def_bg)
+        def_card.to_corner(UR, buff=0.35).shift(DOWN * 0.2)
+
+        self.play(FadeIn(cap_1, shift=UP * 0.1), run_time=0.6)
+        self.wait(0.6)
+        self.play(Transform(cap_1, cap_2), run_time=0.5)
+        self.wait(0.6)
+        self.play(Transform(cap_1, cap_3), run_time=0.5)
+        self.play(FadeIn(def_card, shift=LEFT * 0.1), run_time=0.6)
 
         # ── 9. Narration hold ──────────────────────────────────────────── #
         self.wait(2.5)
 
         # ── 10. Fade out ───────────────────────────────────────────────── #
         self.play(
-            FadeOut(header), FadeOut(pipeline), FadeOut(caption),
+            FadeOut(header), FadeOut(pipeline), FadeOut(cap_1),
             FadeOut(cards_vg), FadeOut(angle_labels),
             FadeOut(kernel_panel), FadeOut(conv_arrow), FadeOut(conv_label),
+            FadeOut(def_card),
             run_time=1.0,
         )
         self.wait(0.3)

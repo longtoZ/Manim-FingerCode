@@ -279,19 +279,45 @@ class ReferencePointScene(Scene):
         )
 
         # ---------------------------------------------------------- #
-        # 8. Caption block                                             #
+        # 8. Staged captions + definition card                         #
         # ---------------------------------------------------------- #
-        caption_lines = VGroup(
-            Text("The algorithm first locates the fingerprint",
-                 font=FP_FONT, font_size=18, color=FP_TEXT_DIM),
-            Text("core point — the innermost tip of the ridge",
-                 font=FP_FONT, font_size=18, color=FP_TEXT_DIM),
-            Text("curvature — which anchors all subsequent steps.",
-                 font=FP_FONT, font_size=18, color=FP_TEXT_DIM),
-        ).arrange(DOWN, aligned_edge=LEFT, buff=0.12)
-        caption_lines.next_to(pipeline, UP, buff=0.28)
+        cap_1 = Text(
+            "Find the core where ridge flow turns inward.",
+            font=FP_FONT, font_size=18, color=FP_TEXT_DIM,
+        )
+        cap_2 = Text(
+            "This point stabilizes rotation and alignment.",
+            font=FP_FONT, font_size=18, color=FP_TEXT_DIM,
+        )
+        cap_3 = Text(
+            "All sectors are measured relative to this anchor.",
+            font=FP_FONT, font_size=18, color=FP_TEXT_DIM,
+        )
+        cap_1.next_to(pipeline, UP, buff=0.28)
+        cap_2.move_to(cap_1)
+        cap_3.move_to(cap_1)
 
-        self.play(FadeIn(caption_lines, shift=UP * 0.1), run_time=0.7)
+        def_text = Text(
+            "Core point = reference for alignment",
+            font=FP_FONT, font_size=15, color=FP_TEXT_PRIMARY,
+        )
+        def_bg = RoundedRectangle(
+            width=def_text.width + 0.45,
+            height=def_text.height + 0.3,
+            corner_radius=0.12,
+            fill_color="#0d0d1a", fill_opacity=0.92,
+            stroke_color=FP_ACCENT_GOLD, stroke_width=1.2,
+        )
+        def_card = VGroup(def_bg, def_text)
+        def_text.move_to(def_bg)
+        def_card.to_corner(UR, buff=0.4)
+
+        self.play(FadeIn(cap_1, shift=UP * 0.1), run_time=0.6)
+        self.wait(0.6)
+        self.play(Transform(cap_1, cap_2), run_time=0.5)
+        self.wait(0.6)
+        self.play(Transform(cap_1, cap_3), run_time=0.5)
+        self.play(FadeIn(def_card, shift=LEFT * 0.1), run_time=0.6)
 
         # ---------------------------------------------------------- #
         # 9. Narration hold                                            #
@@ -304,7 +330,8 @@ class ReferencePointScene(Scene):
         self.play(
             FadeOut(header),
             FadeOut(pipeline),
-            FadeOut(caption_lines),
+            FadeOut(cap_1),
+            FadeOut(def_card),
             FadeOut(label_text),
             FadeOut(arrow),
             FadeOut(crosshair),

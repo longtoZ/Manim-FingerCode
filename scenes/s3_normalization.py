@@ -358,16 +358,28 @@ class NormalizationScene(Scene):
             run_time=0.8,
         )
 
-        # ── 7. Caption ─────────────────────────────────────────────────── #
-        caption = VGroup(
-            Text("Each sector is independently normalized:",
-                 font=FP_FONT, font_size=17, color=FP_TEXT_DIM),
-            Text("μ₀, σ₀² → uniform mean & variance.",
-                 font=FP_FONT, font_size=17, color=FP_TEXT_DIM),
-        ).arrange(DOWN, aligned_edge=LEFT, buff=0.08)
-        caption.next_to(formula_group, UP, buff=0.2)
+        # ── 7. Staged captions ─────────────────────────────────────────── #
+        cap_1 = Text(
+            "Local contrast varies from sector to sector.",
+            font=FP_FONT, font_size=17, color=FP_TEXT_DIM,
+        )
+        cap_2 = Text(
+            "Normalize each sector to a common mean and variance.",
+            font=FP_FONT, font_size=17, color=FP_TEXT_DIM,
+        )
+        cap_3 = Text(
+            "Now features are comparable across prints.",
+            font=FP_FONT, font_size=17, color=FP_TEXT_DIM,
+        )
+        cap_1.next_to(formula_group, UP, buff=0.2)
+        cap_2.move_to(cap_1)
+        cap_3.move_to(cap_1)
 
-        self.play(FadeIn(caption, shift=UP * 0.1), run_time=0.6)
+        self.play(FadeIn(cap_1, shift=UP * 0.1), run_time=0.6)
+        self.wait(0.6)
+        self.play(Transform(cap_1, cap_2), run_time=0.5)
+        self.wait(0.6)
+        self.play(Transform(cap_1, cap_3), run_time=0.5)
 
         # ── 8. Narration hold ──────────────────────────────────────────── #
         self.wait(2.5)
@@ -379,7 +391,7 @@ class NormalizationScene(Scene):
             FadeOut(before_sectors),
             FadeOut(hist_before_panel),
             FadeOut(before_label),
-            FadeOut(formula_group), FadeOut(caption),
+            FadeOut(formula_group), FadeOut(cap_1),
             run_time=1.0,
         )
         self.wait(0.3)

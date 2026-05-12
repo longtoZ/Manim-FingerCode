@@ -227,12 +227,54 @@ class IntroScene(Scene):
         )
 
         # ------------------------------------------------------------------ #
-        # 6. Narration pause                                                   #
+        # 6. Staged intro captions + definition card                          #
+        # ------------------------------------------------------------------ #
+        caption_1 = Text(
+            "Goal: compress a fingerprint into a compact code.",
+            font=FP_FONT, font_size=20, color=FP_TEXT_DIM,
+        )
+        caption_2 = Text(
+            "Each step isolates stable ridge texture.",
+            font=FP_FONT, font_size=20, color=FP_TEXT_DIM,
+        )
+        caption_3 = Text(
+            "We finish by comparing codes to decide a match.",
+            font=FP_FONT, font_size=20, color=FP_TEXT_DIM,
+        )
+        caption_1.to_edge(DOWN, buff=1.25)
+        caption_2.move_to(caption_1)
+        caption_3.move_to(caption_1)
+
+        def_card_text = Text(
+            "FingerCode = texture features from polar sectors",
+            font=FP_FONT, font_size=16, color=FP_TEXT_PRIMARY,
+        )
+        def_card_bg = RoundedRectangle(
+            width=def_card_text.width + 0.5,
+            height=def_card_text.height + 0.3,
+            corner_radius=0.12,
+            fill_color="#0d0d1a", fill_opacity=0.92,
+            stroke_color=FP_ACCENT_GOLD, stroke_width=1.2,
+        )
+        def_card = VGroup(def_card_bg, def_card_text)
+        def_card_text.move_to(def_card_bg)
+        def_card.to_corner(UR, buff=0.4)
+
+        self.play(FadeIn(caption_1, shift=UP * 0.1), run_time=0.6)
+        self.wait(0.7)
+        self.play(Transform(caption_1, caption_2), run_time=0.5)
+        self.wait(0.7)
+        self.play(Transform(caption_1, caption_3), run_time=0.5)
+        self.play(FadeIn(def_card, shift=LEFT * 0.1), run_time=0.6)
+        self.wait(0.9)
+
+        # ------------------------------------------------------------------ #
+        # 7. Narration pause                                                   #
         # ------------------------------------------------------------------ #
         self.wait(2.5)
 
         # ------------------------------------------------------------------ #
-        # 7. Fade out everything                                               #
+        # 8. Fade out everything                                               #
         # ------------------------------------------------------------------ #
         self.play(
             FadeOut(title_group),
@@ -240,6 +282,8 @@ class IntroScene(Scene):
             FadeOut(divider),
             FadeOut(pipeline),
             FadeOut(pipeline_label),
+            FadeOut(caption_1),
+            FadeOut(def_card),
             FadeOut(fp_img),
             run_time=1.0,
         )

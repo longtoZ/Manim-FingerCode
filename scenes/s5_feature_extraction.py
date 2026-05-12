@@ -278,15 +278,40 @@ class FeatureExtractionScene(Scene):
             run_time=0.8,
         )
 
-        # ── 8. Caption ────────────────────────────────────────────────── #
-        caption = VGroup(
-            Text("Each sector collapses to one scalar value (its A.A.D.).",
-                 font=FP_FONT, font_size=17, color=FP_TEXT_DIM),
-            Text("Stacking all filters → the 128-D FingerCode descriptor.",
-                 font=FP_FONT, font_size=17, color=FP_TEXT_DIM),
-        ).arrange(DOWN, aligned_edge=LEFT, buff=0.08)
-        caption.next_to(pipeline, UP, buff=0.25)
-        self.play(FadeIn(caption, shift=UP * 0.1), run_time=0.7)
+        dim_callout = Text("128-D", font=FP_FONT, font_size=14,
+                           color=FP_ACCENT_GOLD, weight=BOLD)
+        dim_callout.next_to(VGroup(*bar_targets), RIGHT, buff=0.25)
+        dim_arrow = Arrow(
+            start=dim_callout.get_left(),
+            end=VGroup(*bar_targets).get_right(),
+            buff=0.08,
+            stroke_color=FP_ACCENT_GOLD,
+            stroke_width=1.6,
+            max_tip_length_to_length_ratio=0.25,
+        )
+        self.play(FadeIn(dim_callout), GrowArrow(dim_arrow), run_time=0.6)
+
+        # ── 8. Staged captions ────────────────────────────────────────── #
+        cap_1 = Text(
+            "Each sector collapses to one scalar value (A.A.D.).",
+            font=FP_FONT, font_size=17, color=FP_TEXT_DIM,
+        )
+        cap_2 = Text(
+            "Collect values across rings and sectors.",
+            font=FP_FONT, font_size=17, color=FP_TEXT_DIM,
+        )
+        cap_3 = Text(
+            "Stack all filters to form the 128-D FingerCode.",
+            font=FP_FONT, font_size=17, color=FP_TEXT_DIM,
+        )
+        cap_1.next_to(pipeline, UP, buff=0.25)
+        cap_2.move_to(cap_1)
+        cap_3.move_to(cap_1)
+        self.play(FadeIn(cap_1, shift=UP * 0.1), run_time=0.6)
+        self.wait(0.6)
+        self.play(Transform(cap_1, cap_2), run_time=0.5)
+        self.wait(0.6)
+        self.play(Transform(cap_1, cap_3), run_time=0.5)
 
         # ── 9. Hold ───────────────────────────────────────────────────── #
         self.wait(2.5)
@@ -294,9 +319,10 @@ class FeatureExtractionScene(Scene):
         # ── 10. Fade out ──────────────────────────────────────────────── #
         self.play(
             *[FadeOut(sec) for sec in colored_sectors],
-            FadeOut(header), FadeOut(pipeline), FadeOut(caption),
+            FadeOut(header), FadeOut(pipeline), FadeOut(cap_1),
             FadeOut(vec_label), FadeOut(sub_label),
             FadeOut(brace), FadeOut(brace_lbl),
+            FadeOut(dim_callout), FadeOut(dim_arrow),
             run_time=1.0,
         )
         self.wait(0.3)

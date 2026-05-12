@@ -237,7 +237,9 @@ class MatchingScene(Scene):
         meter_fill.align_to(meter_bg, LEFT).shift(RIGHT * 0.03)
 
         meter_lbl = Text("Distance:", font=FP_FONT, font_size=14,
-                         color=FP_TEXT_DIM)
+                 color=FP_TEXT_DIM)
+        meter_tag = Text("d(T, I)", font=FP_FONT, font_size=12,
+                 color=FP_TEXT_PRIMARY)
         meter_val = Text(f"d = {dist:.3f}", font=FP_FONT, font_size=14,
                          color=fill_color, weight=BOLD)
         thr_lbl   = Text(f"threshold = {self.THRESHOLD:.2f}",
@@ -246,10 +248,11 @@ class MatchingScene(Scene):
         meter_group = VGroup(meter_bg, meter_fill)
         meter_group.next_to(formula_panel, RIGHT, buff=0.45)
         meter_lbl.next_to(meter_group, UP, buff=0.1)
+        meter_tag.next_to(meter_group, UP, buff=0.32)
         meter_val.next_to(meter_group, DOWN, buff=0.08)
         thr_lbl.next_to(meter_val, RIGHT, buff=0.25)
 
-        self.play(FadeIn(meter_group), FadeIn(meter_lbl), run_time=0.5)
+        self.play(FadeIn(meter_group), FadeIn(meter_lbl), FadeIn(meter_tag), run_time=0.5)
         # Animate fill expanding via Transform to a pre-built target shape
         target_w = max((meter_w - 0.06) * fill_ratio, 0.04)
         meter_fill_target = Rectangle(
@@ -296,25 +299,37 @@ class MatchingScene(Scene):
             run_time=0.4, rate_func=there_and_back,
         )
 
-        # ── 7. Caption ────────────────────────────────────────────────── #
-        caption = VGroup(
-            Text("Euclidean distance between the two 128-D FingerCode vectors.",
-                 font=FP_FONT, font_size=16, color=FP_TEXT_DIM),
-            Text(f"d < {self.THRESHOLD} → fingerprints match; d ≥ {self.THRESHOLD} → reject.",
-                 font=FP_FONT, font_size=16, color=FP_TEXT_DIM),
-        ).arrange(DOWN, aligned_edge=LEFT, buff=0.08)
-        caption.next_to(pipeline, UP, buff=0.22)
-        self.play(FadeIn(caption, shift=UP * 0.1), run_time=0.6)
+        # ── 7. Staged captions ────────────────────────────────────────── #
+        cap_1 = Text(
+            "Compare the two FingerCode vectors.",
+            font=FP_FONT, font_size=16, color=FP_TEXT_DIM,
+        )
+        cap_2 = Text(
+            "Compute Euclidean distance between corresponding values.",
+            font=FP_FONT, font_size=16, color=FP_TEXT_DIM,
+        )
+        cap_3 = Text(
+            f"If d < {self.THRESHOLD:.2f}, accept; otherwise reject.",
+            font=FP_FONT, font_size=16, color=FP_TEXT_DIM,
+        )
+        cap_1.next_to(pipeline, UP, buff=0.22)
+        cap_2.move_to(cap_1)
+        cap_3.move_to(cap_1)
+        self.play(FadeIn(cap_1, shift=UP * 0.1), run_time=0.6)
+        self.wait(0.6)
+        self.play(Transform(cap_1, cap_2), run_time=0.5)
+        self.wait(0.6)
+        self.play(Transform(cap_1, cap_3), run_time=0.5)
 
         # ── 8. Hold ───────────────────────────────────────────────────── #
         self.wait(2.5)
 
         # ── 9. Fade out ────────────────────────────────────────────────── #
         self.play(
-            FadeOut(header), FadeOut(pipeline), FadeOut(caption),
+            FadeOut(header), FadeOut(pipeline), FadeOut(cap_1),
             FadeOut(bar_T), FadeOut(bar_I), FadeOut(box_T), FadeOut(box_I),
             FadeOut(connector_lines), FadeOut(formula_panel),
-            FadeOut(meter_group), FadeOut(meter_lbl),
+            FadeOut(meter_group), FadeOut(meter_lbl), FadeOut(meter_tag),
             FadeOut(meter_val), FadeOut(thr_lbl),
             FadeOut(decision_panel),
             run_time=1.0,

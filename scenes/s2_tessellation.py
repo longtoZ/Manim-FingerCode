@@ -309,6 +309,11 @@ class TessellationScene(Scene):
             labels_vg = VGroup(ring_labels, sector_labels)
             self.play(FadeIn(labels_vg), run_time=0.6)
 
+        aoi_label = Text("AOI", font=FP_FONT, font_size=16,
+                         color=FP_ACCENT_TEAL, weight=BOLD)
+        aoi_label.move_to(core_world + RIGHT * (self.OUTER_RADIUS + 0.35))
+        self.play(FadeIn(aoi_label, shift=UP * 0.05), run_time=0.4)
+
         # ------------------------------------------------------------------ #
         # 8. Highlight one example sector                                     #
         # ------------------------------------------------------------------ #
@@ -372,25 +377,33 @@ class TessellationScene(Scene):
         )
 
         # ------------------------------------------------------------------ #
-        # 9. Caption block                                                     #
+        # 9. Staged captions                                                   #
         # ------------------------------------------------------------------ #
         r_val = N_RINGS
         s_val = N_SECTORS
         total = r_val * s_val
 
-        caption = VGroup(
-            Text(
-                f"The AOI is divided into {r_val} rings × {s_val} sectors",
-                font=FP_FONT, font_size=19, color=FP_TEXT_DIM,
-            ),
-            Text(
-                f"= {total} cells, each capturing local ridge texture.",
-                font=FP_FONT, font_size=19, color=FP_TEXT_DIM,
-            ),
-        ).arrange(DOWN, aligned_edge=LEFT, buff=0.1)
-        caption.next_to(pipeline, UP, buff=0.28)
+        cap_1 = Text(
+            "Polar sampling stays stable under rotation.",
+            font=FP_FONT, font_size=19, color=FP_TEXT_DIM,
+        )
+        cap_2 = Text(
+            f"AOI split into {r_val} rings × {s_val} sectors.",
+            font=FP_FONT, font_size=19, color=FP_TEXT_DIM,
+        )
+        cap_3 = Text(
+            f"= {total} cells, each capturing local ridge texture.",
+            font=FP_FONT, font_size=19, color=FP_TEXT_DIM,
+        )
+        cap_1.next_to(pipeline, UP, buff=0.28)
+        cap_2.move_to(cap_1)
+        cap_3.move_to(cap_1)
 
-        self.play(FadeIn(caption, shift=UP * 0.1), run_time=0.7)
+        self.play(FadeIn(cap_1, shift=UP * 0.1), run_time=0.6)
+        self.wait(0.6)
+        self.play(Transform(cap_1, cap_2), run_time=0.5)
+        self.wait(0.6)
+        self.play(Transform(cap_1, cap_3), run_time=0.5)
 
         # ------------------------------------------------------------------ #
         # 10. Narration hold                                                   #
@@ -401,9 +414,9 @@ class TessellationScene(Scene):
         # 11. Fade everything out                                              #
         # ------------------------------------------------------------------ #
         fade_targets = [
-            header, pipeline, caption,
+            header, pipeline, cap_1,
             rings_vg, spokes_vg,
-            highlight_sector, fp_img, core_dot,
+            highlight_sector, fp_img, core_dot, aoi_label,
         ]
         if self.SHOW_LABELS:
             fade_targets.append(labels_vg)

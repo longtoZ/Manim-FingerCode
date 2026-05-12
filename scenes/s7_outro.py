@@ -105,10 +105,29 @@ class OutroScene(Scene):
         self.wait(0.3)
 
         # ── 2. Pulse each node gold in sequence ───────────────────────── #
+        recap_lines = [
+            "1. Find the core reference point.",
+            "2. Partition into polar sectors.",
+            "3. Normalize local contrast.",
+            "4. Filter oriented ridge texture.",
+            "5. Assemble the FingerCode vector.",
+            "6. Compare vectors to decide a match.",
+        ]
+        recap_text = Text(recap_lines[0], font=FP_FONT,
+                          font_size=16, color=FP_TEXT_DIM)
+        recap_text.to_edge(DOWN, buff=0.55)
+        self.play(FadeIn(recap_text, shift=UP * 0.1), run_time=0.5)
+
         for i, (step, node) in enumerate(zip(STEPS, nodes_vg)):
             active_node = _make_node(step, active=True)
             active_node.move_to(node.get_center())
             self.play(Transform(node, active_node), run_time=0.25)
+            if i < len(recap_lines) - 1:
+                next_text = Text(recap_lines[i + 1], font=FP_FONT,
+                                 font_size=16, color=FP_TEXT_DIM)
+                next_text.move_to(recap_text)
+                self.play(Transform(recap_text, next_text), run_time=0.35)
+            self.wait(0.2)
 
         self.wait(0.4)
 
@@ -170,6 +189,7 @@ class OutroScene(Scene):
         self.play(
             FadeOut(nodes_vg), FadeOut(arrows_vg),
             FadeOut(title_block), FadeOut(sub), FadeOut(credit_lines),
+            FadeOut(recap_text),
             run_time=1.5,
         )
         self.wait(0.5)
