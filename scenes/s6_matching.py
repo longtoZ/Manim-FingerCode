@@ -301,15 +301,18 @@ class MatchingScene(Scene):
 
         # ── 7. Staged captions ────────────────────────────────────────── #
         cap_1 = Text(
-            "Compare the two FingerCode vectors.",
+            "We compare the two FingerCode vectors element by element to assess\n"
+            "how closely their local textures align.",
             font=FP_FONT, font_size=16, color=FP_TEXT_DIM,
         )
         cap_2 = Text(
-            "Compute Euclidean distance between corresponding values.",
+            "Euclidean distance aggregates all per-sector differences into one\n"
+            "score that is easy to interpret and threshold.",
             font=FP_FONT, font_size=16, color=FP_TEXT_DIM,
         )
         cap_3 = Text(
-            f"If d < {self.THRESHOLD:.2f}, accept; otherwise reject.",
+            f"If d < {self.THRESHOLD:.2f}, we accept the match; otherwise we\n"
+            "reject it as a different fingerprint.",
             font=FP_FONT, font_size=16, color=FP_TEXT_DIM,
         )
         cap_1.next_to(pipeline, UP, buff=0.22)

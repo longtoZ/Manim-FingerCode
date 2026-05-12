@@ -349,7 +349,8 @@ class FilteringScene(Scene):
 
         # ── 3. Context caption ─────────────────────────────────────────── #
         ctx_caption = Text(
-            "The normalised image is passed through a bank of directional filters.",
+            "The normalized image is passed through a bank of directional filters\n"
+            "so we can measure texture along multiple ridge orientations.",
             font=FP_FONT, font_size=17, color=FP_TEXT_DIM,
         )
         ctx_caption.next_to(pipeline, UP, buff=0.25)
@@ -454,15 +455,18 @@ class FilteringScene(Scene):
 
         # ── 8. Staged captions + definition card ───────────────────────── #
         cap_1 = Text(
-            "Ridges have strong orientation patterns.",
+            "Ridge texture is strongly oriented, so we analyze it with filters\n"
+            "that are selective to direction and spatial frequency.",
             font=FP_FONT, font_size=17, color=FP_TEXT_DIM,
         )
         cap_2 = Text(
-            "Gabor filters respond to a specific direction.",
+            "Each Gabor filter responds to one dominant orientation band, which\n"
+            "isolates the ridge flow that aligns with that direction.",
             font=FP_FONT, font_size=17, color=FP_TEXT_DIM,
         )
         cap_3 = Text(
-            "4 orientations × 32 cells = 128 filtered values.",
+            "Stacking 4 orientations across 32 cells yields a 128-value texture\n"
+            "signature that is compact but still descriptive.",
             font=FP_FONT, font_size=17, color=FP_TEXT_DIM,
         )
         cap_1.next_to(pipeline, UP, buff=0.25)
@@ -470,7 +474,7 @@ class FilteringScene(Scene):
         cap_3.move_to(cap_1)
 
         def_text = Text(
-            "Gabor filter = oriented band-pass",
+            "Gabor filter = an oriented band-pass texture probe",
             font=FP_FONT, font_size=15, color=FP_TEXT_PRIMARY,
         )
         def_bg = RoundedRectangle(

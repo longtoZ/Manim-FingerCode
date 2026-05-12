@@ -16,12 +16,15 @@ FingerCode Manim/
 │   └── fingerprint_template.png ← template fingerprint for matching scene
 ├── scenes/
 │   ├── s0_intro.py
+│   ├── s0a_overview.py
 │   ├── s1_reference_point.py
 │   ├── s2_tessellation.py
+│   ├── s2a_polar_grid_text.py
 │   ├── s3_normalization.py
 │   ├── s4_filtering.py
 │   ├── s5_feature_extraction.py
-│   └── s6_matching.py
+│   ├── s6_matching.py
+│   └── s6a_matching_text.py
 └── utils/
     ├── fingerprint_utils.py  ← image loading, preprocessing helpers
     └── grid_utils.py         ← polar-grid / sector geometry helpers
@@ -57,8 +60,17 @@ FingerCode Manim/
 - [x] **1.3** Fingerprint `ImageMobject` fades in at 12 % opacity as a backdrop; teal divider line drawn with `Create`.
 - [x] **1.4** Narration pause of 2.5 s after pipeline bar appears.
 - [x] **1.5** All elements `FadeOut` together in 1 s. _(Rendered → `media/videos/s0_intro/480p15/IntroScene.mp4`)_
-- [ ] **1.6** Add staged intro captions (2-3 short lines) to introduce the pipeline goals.
-- [ ] **1.7** Add a brief definition card: "FingerCode = texture features from polar sectors".
+- [x] **1.6** Add staged intro captions (2-3 short lines) to introduce the pipeline goals.
+- [x] **1.7** Add a brief definition card: "FingerCode = texture features from polar sectors".
+
+---
+
+## Phase 1.5 — Text Interlude A: Algorithm Overview
+
+> A text-only scene to improve clarity and extend runtime.
+
+- [x] **1.8** Add a short overview slide: goal, inputs, outputs.
+- [x] **1.9** Highlight the six-step pipeline in words (no visuals).
 
 ---
 
@@ -72,8 +84,8 @@ FingerCode Manim/
 - [x] **2.4** `"Core Point (Reference)"` label + gold `Arrow` animate in with `FadeIn` / `GrowArrow`.
 - [x] **2.5** 3-line caption block fades in above the pipeline bar.
 - [x] **2.6** Transient elements fade out in 0.9 s; `HANDOFF_MODE` flag keeps `fp_img` + `core_dot` alive for Scene 2. _(Rendered → `media/videos/s1_reference_point/480p15/ReferencePointScene.mp4`)_
-- [ ] **2.7** Split the caption into 2-3 sequential beats to extend explanation (fade between lines).
-- [ ] **2.8** Add a short definition card: "Core point anchors rotation and alignment".
+- [x] **2.7** Split the caption into 2-3 sequential beats to extend explanation (fade between lines).
+- [x] **2.8** Add a short definition card: "Core point anchors rotation and alignment".
 
 ---
 
@@ -88,8 +100,17 @@ FingerCode Manim/
 - [x] **3.5** Caption: _"The AOI is divided into 4 rings × 8 sectors = 32 cells, each capturing local ridge texture."_
 - [x] **3.6** Ring 1 / Sector 2 highlighted with gold fill pulse + callout arrow; fill fades back out.
 - [x] **3.7** 2.5 s narration hold; all elements fade out in 1.0 s. _(Rendered → `media/videos/s2_tessellation/480p15/TessellationScene.mp4`)_
-- [ ] **3.8** Add multi-beat captions: (1) why polar grid, (2) AOI partitioning, (3) cell summary.
-- [ ] **3.9** Add a small "AOI" label near the grid edge during the highlight.
+- [x] **3.8** Add multi-beat captions: (1) why polar grid, (2) AOI partitioning, (3) cell summary.
+- [x] **3.9** Add a small "AOI" label near the grid edge during the highlight.
+
+---
+
+## Phase 3.5 — Text Interlude B: Polar Grid Intuition
+
+> A text-only scene to explain why polar sampling is used.
+
+- [x] **3.10** Add a slide describing AOI, rings, sectors, and rotation stability.
+- [x] **3.11** Emphasize the 4 × 8 = 32 cell layout.
 
 ---
 
@@ -103,8 +124,8 @@ FingerCode Manim/
 - [x] **4.4** Caption: _"Each sector is independently normalized: μ₀, σ₀² → uniform mean & variance."_
 - [x] **4.5** `MathTex(r"G(x,y) = \mu_0 + \sigma_0 \cdot \frac{I(x,y)-\mu}{\sigma}")` in a dark `RoundedRectangle` panel; plain-text `Text` fallback if LaTeX unavailable. _(LaTeX compiled successfully.)_
 - [x] **4.6** 2.5 s narration hold; all elements fade in 1.0 s. _(Rendered → `media/videos/s3_normalization/480p15/NormalizationScene.mp4`)_
-- [ ] **4.7** Add staged captions: (1) local contrast varies, (2) normalize per sector, (3) improves comparability.
-- [ ] **4.8** Add "Before" and "After" labels for the sector colors and histogram.
+- [x] **4.7** Add staged captions: (1) local contrast varies, (2) normalize per sector, (3) improves comparability.
+- [x] **4.8** Add "Before" and "After" labels for the sector colors and histogram.
 
 ---
 
@@ -119,8 +140,8 @@ FingerCode Manim/
 - [x] **5.5** Orientation labels (0deg, 45deg, 90deg, 135deg) in matching hue below each card.
 - [x] **5.6** Caption: A bank of F=4 Gabor filters, 4 orientations, 4x32=128 filtered values.
 - [x] **5.7** 2.5s hold; fade out 1.0s. _(Rendered to media/videos/s4_filtering/480p15/FilteringScene.mp4)_
-- [ ] **5.8** Add staged captions: (1) texture = oriented ridges, (2) Gabor responds to direction, (3) stack 4 channels.
-- [ ] **5.9** Add a short definition card: "Gabor filter = oriented band-pass".
+- [x] **5.8** Add staged captions: (1) texture = oriented ridges, (2) Gabor responds to direction, (3) stack 4 channels.
+- [x] **5.9** Add a short definition card: "Gabor filter = oriented band-pass".
 
 ---
 
@@ -135,8 +156,8 @@ FingerCode Manim/
 - [x] **6.5** Label FingerCode Vector + sub-label 128 features; Brace under bar.
 - [x] **6.6** Caption about 128-D descriptor.
 - [x] **6.7** 2.5s hold; fade out. Rendered to media/videos/s5_feature_extraction/480p15/FeatureExtractionScene.mp4
-- [ ] **6.8** Add staged captions: (1) summarize sector energy, (2) AAD measures deviation, (3) vector assembly.
-- [ ] **6.9** Add a small "128-D" callout near the final vector.
+- [x] **6.8** Add staged captions: (1) summarize sector energy, (2) AAD measures deviation, (3) vector assembly.
+- [x] **6.9** Add a small "128-D" callout near the final vector.
 
 ---
 
@@ -159,8 +180,17 @@ FingerCode Manim/
     - If `d < threshold` → green checkmark + `"MATCH ✓"` text (use `GrowFromCenter`).
     - If `d ≥ threshold` → red X + `"NO MATCH ✗"` text.
 - [x] **7.7** Hold on the final decision frame, then fade to the outro.
-- [ ] **7.8** Add staged captions: (1) compare vectors, (2) compute distance, (3) threshold decision.
-- [ ] **7.9** Add a brief label on the meter: "Distance".
+- [x] **7.8** Add staged captions: (1) compare vectors, (2) compute distance, (3) threshold decision.
+- [x] **7.9** Add a brief label on the meter: "Distance".
+
+---
+
+## Phase 7.5 — Text Interlude C: Matching Logic
+
+> A text-only scene before the final decision.
+
+- [x] **7.10** Explain distance, threshold, and match/no-match logic.
+- [x] **7.11** Reinforce that lower distance means higher similarity.
 
 ---
 
@@ -173,7 +203,7 @@ FingerCode Manim/
 - [ ] **8.3** Display closing text: `"FingerCode — Texture Meets Topology"` with a subtle fade-in.
 - [ ] **8.4** Add credits / source references using small `Text` at the bottom.
 - [ ] **8.5** Final `FadeOut` of all elements to black.
-- [ ] **8.6** Add a recap caption line for each step as the node pulses.
+- [x] **8.6** Add a recap caption line for each step as the node pulses.
 
 ---
 

@@ -339,7 +339,7 @@ class TessellationScene(Scene):
         )
         # Sector label callout
         sector_callout = Text(
-            "One sector (ring 1, sector 2)",
+            "One sector here is a local window we will summarize later.",
             font=FP_FONT, font_size=17, color=FP_ACCENT_GOLD,
         )
         sector_mid_angle = 2 * (TAU / N_SECTORS) + (TAU / N_SECTORS) / 2
@@ -384,15 +384,18 @@ class TessellationScene(Scene):
         total = r_val * s_val
 
         cap_1 = Text(
-            "Polar sampling stays stable under rotation.",
+            "We sample in polar coordinates because rotation shifts angles,\n"
+            "but it preserves the relative ring structure around the core.",
             font=FP_FONT, font_size=19, color=FP_TEXT_DIM,
         )
         cap_2 = Text(
-            f"AOI split into {r_val} rings × {s_val} sectors.",
+            f"The AOI is split into {r_val} rings and {s_val} sectors so each\n"
+            "cell corresponds to a specific radius and direction.",
             font=FP_FONT, font_size=19, color=FP_TEXT_DIM,
         )
         cap_3 = Text(
-            f"= {total} cells, each capturing local ridge texture.",
+            f"That gives {total} local cells, and every cell becomes a compact\n"
+            "texture measurement later in the pipeline.",
             font=FP_FONT, font_size=19, color=FP_TEXT_DIM,
         )
         cap_1.next_to(pipeline, UP, buff=0.28)

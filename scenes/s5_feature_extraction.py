@@ -293,15 +293,18 @@ class FeatureExtractionScene(Scene):
 
         # ── 8. Staged captions ────────────────────────────────────────── #
         cap_1 = Text(
-            "Each sector collapses to one scalar value (A.A.D.).",
+            "Within each sector we summarize texture energy as a single A.A.D.\n"
+            "value, which captures how much the ridges deviate locally.",
             font=FP_FONT, font_size=17, color=FP_TEXT_DIM,
         )
         cap_2 = Text(
-            "Collect values across rings and sectors.",
+            "We collect these values in a fixed order across rings and sectors\n"
+            "so the vector has a consistent, comparable layout.",
             font=FP_FONT, font_size=17, color=FP_TEXT_DIM,
         )
         cap_3 = Text(
-            "Stack all filters to form the 128-D FingerCode.",
+            "Concatenating all filter channels produces the full 128-D FingerCode\n"
+            "descriptor used for matching.",
             font=FP_FONT, font_size=17, color=FP_TEXT_DIM,
         )
         cap_1.next_to(pipeline, UP, buff=0.25)

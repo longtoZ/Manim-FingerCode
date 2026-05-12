@@ -360,15 +360,18 @@ class NormalizationScene(Scene):
 
         # ── 7. Staged captions ─────────────────────────────────────────── #
         cap_1 = Text(
-            "Local contrast varies from sector to sector.",
+            "Local contrast can vary widely from sector to sector, so raw\n"
+            "intensities are not directly comparable across the image.",
             font=FP_FONT, font_size=17, color=FP_TEXT_DIM,
         )
         cap_2 = Text(
-            "Normalize each sector to a common mean and variance.",
+            "We normalize each sector to a common mean and variance, which\n"
+            "removes lighting bias while preserving ridge texture structure.",
             font=FP_FONT, font_size=17, color=FP_TEXT_DIM,
         )
         cap_3 = Text(
-            "Now features are comparable across prints.",
+            "After normalization, the same filter response has a consistent\n"
+            "meaning across different fingerprints.",
             font=FP_FONT, font_size=17, color=FP_TEXT_DIM,
         )
         cap_1.next_to(formula_group, UP, buff=0.2)

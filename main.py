@@ -48,14 +48,17 @@ from config import (
 # ---------------------------------------------------------------------------
 # Scene imports  (uncomment each scene as it is implemented)
 # ---------------------------------------------------------------------------
-from scenes.s0_intro            import IntroScene
-from scenes.s1_reference_point  import ReferencePointScene
-from scenes.s2_tessellation     import TessellationScene
-from scenes.s3_normalization    import NormalizationScene
-from scenes.s4_filtering        import FilteringScene
-from scenes.s5_feature_extraction import FeatureExtractionScene
-from scenes.s6_matching         import MatchingScene
-from scenes.s7_outro            import OutroScene
+from scenes.s0_intro              import IntroScene
+from scenes.s0a_overview           import OverviewTextScene
+from scenes.s1_reference_point     import ReferencePointScene
+from scenes.s2_tessellation        import TessellationScene
+from scenes.s2a_polar_grid_text    import PolarGridTextScene
+from scenes.s3_normalization       import NormalizationScene
+from scenes.s4_filtering           import FilteringScene
+from scenes.s5_feature_extraction  import FeatureExtractionScene
+from scenes.s6a_matching_text      import MatchingTextScene
+from scenes.s6_matching            import MatchingScene
+from scenes.s7_outro               import OutroScene
 
 
 # ---------------------------------------------------------------------------
@@ -84,11 +87,14 @@ class FingerCodeVideo(Scene):
         # Scenes — uncomment each line as the scene is implemented            #
         # ------------------------------------------------------------------ #
         self._play_subscene(IntroScene)
+        self._play_subscene(OverviewTextScene)
         self._play_subscene(ReferencePointScene)
         self._play_subscene(TessellationScene)
+        self._play_subscene(PolarGridTextScene)
         self._play_subscene(NormalizationScene)
         self._play_subscene(FilteringScene)
         self._play_subscene(FeatureExtractionScene)
+        self._play_subscene(MatchingTextScene)
         self._play_subscene(MatchingScene)
         self._play_subscene(OutroScene)
 
