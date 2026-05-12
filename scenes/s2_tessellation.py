@@ -34,7 +34,7 @@ import numpy as np
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
 from manim import *
-from main import (
+from config import (
     FP_BG_COLOR,
     FP_ACCENT_GOLD,
     FP_ACCENT_TEAL,

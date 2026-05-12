@@ -29,7 +29,7 @@ import os
 # Allow imports from the project root when running the file directly.
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
-from main import (
+from config import (
     FP_BG_COLOR,
     FP_ACCENT_GOLD,
     FP_ACCENT_TEAL,
