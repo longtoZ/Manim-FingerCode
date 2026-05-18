@@ -47,34 +47,33 @@ class PolarGridTextScene(Scene):
         )
         title.to_edge(UP, buff=0.6)
 
-        bullets = [
-            "- The grid is centered on the core point to anchor all measurements",
-            "- Rings capture distance from the core so radial structure is preserved",
-            "- Sectors capture ridge flow direction so orientation is measured explicitly",
-            "- Rotation shifts angles but preserves ring order, which keeps the layout stable",
-            f"- {N_RINGS} rings x {N_SECTORS} sectors = {N_RINGS * N_SECTORS} local cells",
-        ]
-        bullet_text = VGroup(*[
-            Text(line, font=FP_FONT, font_size=20, color=FP_TEXT_PRIMARY)
-            for line in bullets
-        ]).arrange(DOWN, aligned_edge=LEFT, buff=0.16)
-        bullet_text.next_to(title, DOWN, buff=0.4)
-
+        para_1 = Text(
+            "The grid is centered on the core to anchor all measurements,\n"
+            "so rings capture distance while sectors capture ridge direction,\n"
+            "and rotation shifts angles but keeps ring order consistent.",
+            font=FP_FONT, font_size=20, color=FP_TEXT_PRIMARY,
+        )
+        para_2 = Text(
+            f"With {N_RINGS} rings and {N_SECTORS} sectors, the AOI becomes\n"
+            f"{N_RINGS * N_SECTORS} local cells that can be measured uniformly.",
+            font=FP_FONT, font_size=20, color=FP_TEXT_PRIMARY,
+        )
         tag = Text(
             "AOI = the area of interest we analyze around the core",
             font=FP_FONT, font_size=18, color=FP_ACCENT_TEAL,
         )
-        tag.next_to(bullet_text, DOWN, buff=0.35)
+        paragraph_text = VGroup(para_1, para_2, tag).arrange(
+            DOWN, aligned_edge=LEFT, buff=0.24
+        )
+        paragraph_text.next_to(title, DOWN, buff=0.4)
 
         self.play(FadeIn(title, shift=UP * 0.2), run_time=0.7)
-        for line in bullet_text:
-            self.play(FadeIn(line, shift=UP * 0.08), run_time=0.45)
-        self.play(FadeIn(tag, shift=UP * 0.08), run_time=0.5)
+        self.play(FadeIn(paragraph_text, shift=UP * 0.08), run_time=0.9)
 
         self.wait(2.2)
 
         self.play(
-            FadeOut(title), FadeOut(bullet_text), FadeOut(tag),
+            FadeOut(title), FadeOut(paragraph_text),
             run_time=0.8,
         )
         self.wait(0.3)

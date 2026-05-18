@@ -357,6 +357,7 @@ class NormalizationScene(Scene):
             FadeIn(formula_tex, shift=UP * 0.1),
             run_time=0.8,
         )
+        self.wait(0.8)
 
         # ── 7. Staged captions ─────────────────────────────────────────── #
         cap_1 = Text(
@@ -385,7 +386,7 @@ class NormalizationScene(Scene):
         self.play(Transform(cap_1, cap_3), run_time=0.5)
 
         # ── 8. Narration hold ──────────────────────────────────────────── #
-        self.wait(2.5)
+        self.wait(3.5)
 
         # ── 9. Fade out ────────────────────────────────────────────────── #
         self.play(

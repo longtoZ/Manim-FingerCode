@@ -21,10 +21,12 @@ FingerCode Manim/
 │   ├── s2_tessellation.py
 │   ├── s2a_polar_grid_text.py
 │   ├── s3_normalization.py
+│   ├── s3a_normalization_formula.py
 │   ├── s4_filtering.py
 │   ├── s5_feature_extraction.py
 │   ├── s6_matching.py
-│   └── s6a_matching_text.py
+│   ├── s6a_matching_text.py
+│   └── s6b_distance_formula.py
 └── utils/
     ├── fingerprint_utils.py  ← image loading, preprocessing helpers
     └── grid_utils.py         ← polar-grid / sector geometry helpers
@@ -129,6 +131,15 @@ FingerCode Manim/
 
 ---
 
+## Phase 4.5 — Text Interlude D: Normalization Formula
+
+> A text-only scene that explains the normalization equation.
+
+- [x] **4.9** Add a formula slide explaining mean and variance terms.
+- [x] **4.10** Clarify how normalization improves comparability.
+
+---
+
 ## Phase 5 — Scene 4: Gabor Filter Bank
 
 > Visualize Step 4 — Multi-directional filtering of the normalized image.
@@ -194,6 +205,15 @@ FingerCode Manim/
 
 ---
 
+## Phase 7.6 — Text Interlude E: Distance Formula
+
+> A text-only scene that explains the distance equation.
+
+- [x] **7.12** Add a formula slide describing how differences are aggregated.
+- [x] **7.13** Clarify why a single scalar distance is useful for decisions.
+
+---
+
 ## Phase 8 — Scene 7: Summary / Outro
 
 > Recap the full pipeline and close the video.
@@ -227,6 +247,7 @@ FingerCode Manim/
 - [ ] **9.8** Export subtitles / narration script aligned to scene timestamps (optional).
 - [ ] **9.9** Final review: check transitions, mathematical formula rendering, and overall pacing.
 - [ ] **9.10** Target runtime ~5:00 by adding 20-30 s of staged text per scene.
+- [ ] **9.11** Increase holds after major reveals (grid, formula, meter, decision).
 
 ---
 

@@ -215,6 +215,7 @@ class MatchingScene(Scene):
         formula_panel.shift(LEFT * 1.5)
 
         self.play(FadeIn(formula_panel, shift=UP * 0.1), run_time=0.6)
+        self.wait(0.6)
 
         # ── 5. Distance meter ─────────────────────────────────────────── #
         meter_w, meter_h = 3.5, 0.30
@@ -267,7 +268,7 @@ class MatchingScene(Scene):
         self.play(Transform(meter_fill, meter_fill_target),
                   run_time=1.0, rate_func=smooth)
         self.play(FadeIn(meter_val), FadeIn(thr_lbl), run_time=0.4)
-        self.wait(0.3)
+        self.wait(0.8)
 
         # ── 6. Decision ───────────────────────────────────────────────── #
         is_match = dist < self.THRESHOLD
@@ -291,7 +292,7 @@ class MatchingScene(Scene):
         decision_panel.to_corner(UR, buff=0.4).shift(DOWN * 0.4)
 
         self.play(GrowFromCenter(decision_panel), run_time=0.7)
-        self.wait(0.3)
+        self.wait(0.8)
 
         # Pulsing glow effect on decision
         self.play(
@@ -325,7 +326,7 @@ class MatchingScene(Scene):
         self.play(Transform(cap_1, cap_3), run_time=0.5)
 
         # ── 8. Hold ───────────────────────────────────────────────────── #
-        self.wait(2.5)
+        self.wait(3.5)
 
         # ── 9. Fade out ────────────────────────────────────────────────── #
         self.play(
