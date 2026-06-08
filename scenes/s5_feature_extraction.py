@@ -171,30 +171,30 @@ class FeatureExtractionScene(Scene):
         )
         self.wait(0.3)
 
-        # ── 3. A.A.D. formula panel ───────────────────────────────────── #
+        # ── 3. A.A.D. formula panel (smaller, positioned in top-left) ── #
         try:
             formula_tex = MathTex(
                 r"\text{A.A.D.}_k = \frac{1}{A}"
                 r"\sum_{x,y \in S_k} |I_k(x,y) - \mu_k|",
-                color=FP_TEXT_PRIMARY, font_size=30,
+                color=FP_TEXT_PRIMARY, font_size=24,
             )
         except Exception:
             formula_tex = Text("A.A.D.k = (1/A) Σ |I(x,y) − μk|",
-                               font=FP_FONT, font_size=22, color=FP_TEXT_PRIMARY)
+                               font=FP_FONT, font_size=18, color=FP_TEXT_PRIMARY)
 
         formula_bg = RoundedRectangle(
-            width=formula_tex.width + 0.5,
-            height=formula_tex.height + 0.4,
+            width=formula_tex.width + 0.4,
+            height=formula_tex.height + 0.3,
             corner_radius=0.12,
             fill_color="#0d0d1a", fill_opacity=0.92,
-            stroke_color=FP_ACCENT_GOLD, stroke_width=1.2,
+            stroke_color=FP_ACCENT_GOLD, stroke_width=1.0,
         )
         formula_lbl = Text("A.A.D. per sector:", font=FP_FONT,
-                           font_size=13, color=FP_ACCENT_GOLD, weight=BOLD)
+                           font_size=12, color=FP_ACCENT_GOLD, weight=BOLD)
         formula_panel = VGroup(formula_bg, formula_tex)
         formula_tex.move_to(formula_bg)
-        formula_panel = VGroup(formula_lbl, formula_panel).arrange(DOWN, buff=0.1)
-        formula_panel.to_corner(UR, buff=0.35).shift(DOWN * 0.5)
+        formula_panel = VGroup(formula_lbl, formula_panel).arrange(DOWN, buff=0.08)
+        formula_panel.to_corner(UL, buff=0.5).shift(DOWN * 0.2)
 
         self.play(FadeIn(formula_panel, shift=LEFT * 0.1), run_time=0.7)
         self.wait(0.5)

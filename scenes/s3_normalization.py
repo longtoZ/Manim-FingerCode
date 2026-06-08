@@ -322,11 +322,11 @@ class NormalizationScene(Scene):
         # Remove spotlight outline (normalization complete)
         self.play(FadeOut(spot_outline), run_time=0.3)
 
-        # ── 6. Formula ───────────────────────────────────────────────── #
+        # ── 6. Formula (compact, placed left of the grid) ──────────────── #
         formula_bg = RoundedRectangle(
-            width=5.8, height=1.0, corner_radius=0.15,
+            width=3.8, height=0.75, corner_radius=0.12,
             fill_color="#0d0d1a", fill_opacity=0.9,
-            stroke_color=FP_ACCENT_TEAL, stroke_width=1.2,
+            stroke_color=FP_ACCENT_TEAL, stroke_width=1.0,
         )
 
         try:
@@ -334,23 +334,21 @@ class NormalizationScene(Scene):
                 r"G(x,y) \;=\; \mu_0 + \sigma_0 \cdot"
                 r"\frac{I(x,y) - \mu}{\sigma}",
                 color=FP_TEXT_PRIMARY,
-                font_size=36,
+                font_size=28,
             )
         except Exception:
             # LaTeX not available — plain text fallback
             formula_tex = Text(
                 "G(x,y) = μ₀ + σ₀ · (I(x,y) − μ) / σ",
-                font=FP_FONT, font_size=24, color=FP_TEXT_PRIMARY,
+                font=FP_FONT, font_size=18, color=FP_TEXT_PRIMARY,
             )
 
         formula_group = VGroup(formula_bg, formula_tex)
         formula_tex.move_to(formula_bg.get_center())
 
-        # Position: above pipeline, below the grid
-        formula_group.next_to(pipeline, UP, buff=0.25)
-
-        # Nudge left so it doesn't overlap the histogram panel
-        formula_group.shift(LEFT * 0.8)
+        # Position: to the left of the fingerprint / grid so it doesn't
+        # overlap either the image or the histogram panel on the right.
+        formula_group.next_to(fp_img, LEFT, buff=0.35).shift(UP * 0.5)
 
         self.play(
             FadeIn(formula_bg),
@@ -375,7 +373,7 @@ class NormalizationScene(Scene):
             "meaning across different fingerprints.",
             font=FP_FONT, font_size=17, color=FP_TEXT_DIM,
         )
-        cap_1.next_to(formula_group, UP, buff=0.2)
+        cap_1.next_to(pipeline, UP, buff=0.25)
         cap_2.move_to(cap_1)
         cap_3.move_to(cap_1)
 

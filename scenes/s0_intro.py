@@ -241,7 +241,8 @@ class IntroScene(Scene):
             "We finish by comparing codes to decide a match.",
             font=FP_FONT, font_size=20, color=FP_TEXT_DIM,
         )
-        caption_1.to_edge(DOWN, buff=1.25)
+        # Place captions above the pipeline label so they don't overlap
+        caption_1.next_to(pipeline_label, UP, buff=0.35)
         caption_2.move_to(caption_1)
         caption_3.move_to(caption_1)
 

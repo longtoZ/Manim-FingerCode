@@ -106,15 +106,16 @@ class OutroScene(Scene):
 
         # ── 2. Pulse each node gold in sequence ───────────────────────── #
         recap_lines = [
-            "1. Find the core reference point.",
-            "2. Partition into polar sectors.",
-            "3. Normalize local contrast.",
-            "4. Filter oriented ridge texture.",
-            "5. Assemble the FingerCode vector.",
-            "6. Compare vectors to decide a match.",
+            "1. Locate the core point where\n   ridge flow curves inward.",
+            "2. Divide the AOI into 4 concentric\n   rings × 8 angular sectors.",
+            "3. Normalize pixel intensities in each\n   sector to a common mean & variance.",
+            "4. Apply 4 directional Gabor filters\n   to extract oriented ridge texture.",
+            "5. Compute the A.A.D. per sector →\n   assemble the 128-D FingerCode vector.",
+            "6. Compute Euclidean distance d(T,I)\n   and compare against a threshold.",
         ]
         recap_text = Text(recap_lines[0], font=FP_FONT,
-                          font_size=16, color=FP_TEXT_DIM)
+                          font_size=22, color=FP_TEXT_PRIMARY, weight=BOLD,
+                          line_spacing=1.4)
         recap_text.to_edge(DOWN, buff=0.55)
         self.play(FadeIn(recap_text, shift=UP * 0.1), run_time=0.5)
 
@@ -124,7 +125,8 @@ class OutroScene(Scene):
             self.play(Transform(node, active_node), run_time=0.25)
             if i < len(recap_lines) - 1:
                 next_text = Text(recap_lines[i + 1], font=FP_FONT,
-                                 font_size=16, color=FP_TEXT_DIM)
+                                 font_size=22, color=FP_TEXT_PRIMARY, weight=BOLD,
+                                 line_spacing=1.4)
                 next_text.move_to(recap_text)
                 self.play(Transform(recap_text, next_text), run_time=0.35)
             self.wait(0.2)
@@ -162,34 +164,10 @@ class OutroScene(Scene):
         )
         self.wait(0.4)
 
-        # ── 4. Sub-title + credits ────────────────────────────────────── #
-        sub = Text(
-            "A Manim-animated walkthrough of Hong, Wan & Jain (1998)",
-            font=FP_FONT, font_size=15, color=FP_TEXT_DIM,
-        )
-        credit_lines = VGroup(
-            Text("Reference: Hong, L., Wan, Y., & Jain, A. (1998).",
-                 font=FP_FONT, font_size=12, color=FP_TEXT_DIM),
-            Text("Fingerprint Image Enhancement: Algorithm and Performance Evaluation.",
-                 font=FP_FONT, font_size=12, color=FP_TEXT_DIM),
-            Text("IEEE Trans. PAMI, 20(8), 777–789.",
-                 font=FP_FONT, font_size=12, color=FP_TEXT_DIM),
-        ).arrange(DOWN, aligned_edge=LEFT, buff=0.06)
-
-        sub.next_to(title_block, DOWN, buff=0.35)
-        credit_lines.to_edge(DOWN, buff=0.32)
-
-        self.play(FadeIn(sub, shift=UP * 0.1), run_time=0.6)
-        self.play(FadeIn(credit_lines, shift=UP * 0.1), run_time=0.6)
-
-        # ── 5. Narration hold ─────────────────────────────────────────── #
-        self.wait(3.0)
-
-        # ── 6. Final fade to black ────────────────────────────────────── #
+        # ── 5. Final fade to black ────────────────────────────────────── #
         self.play(
             FadeOut(nodes_vg), FadeOut(arrows_vg),
-            FadeOut(title_block), FadeOut(sub), FadeOut(credit_lines),
-            FadeOut(recap_text),
+            FadeOut(title_block), FadeOut(recap_text),
             run_time=1.5,
         )
         self.wait(0.5)

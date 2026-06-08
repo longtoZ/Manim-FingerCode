@@ -251,19 +251,18 @@ class ReferencePointScene(Scene):
         self.remove(pulse_ring)
 
         # ---------------------------------------------------------- #
-        # 7. Arrow + label                                             #
+        # 7. Arrow + label (placed to the right of the fingerprint)    #
         # ---------------------------------------------------------- #
         label_text = Text("Core Point  (Reference)",
                           font=FP_FONT, font_size=22,
                           color=FP_ACCENT_GOLD)
 
-        # Place label to the right if space allows, else to the left
-        label_side = RIGHT if core_x < 0.5 else LEFT
-        label_dir  = RIGHT if core_x < 0.5 else LEFT
-        label_text.next_to(core_world, label_side * 3.5 + UP * 0.5, buff=0)
+        # Always place label to the right edge of the screen, outside the
+        # fingerprint image, with an arrow pointing to the core point inside.
+        label_text.next_to(fp_img, RIGHT, buff=0.8).align_to(fp_img, UP * 0.5)
 
         arrow = Arrow(
-            start=label_text.get_left() if core_x < 0.5 else label_text.get_right(),
+            start=label_text.get_left(),
             end=core_world + RIGHT * 0.12,
             buff=0.05,
             stroke_color=FP_ACCENT_GOLD,
@@ -310,7 +309,7 @@ class ReferencePointScene(Scene):
         )
         def_card = VGroup(def_bg, def_text)
         def_text.move_to(def_bg)
-        def_card.to_corner(UR, buff=0.4)
+        def_card.to_corner(UR, buff=0.4).shift(DOWN * 1.5)
 
         self.play(FadeIn(cap_1, shift=UP * 0.1), run_time=0.6)
         self.wait(0.6)

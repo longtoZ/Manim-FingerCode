@@ -61,6 +61,7 @@ from scenes.s6a_matching_text      import MatchingTextScene
 from scenes.s6b_distance_formula   import DistanceFormulaScene
 from scenes.s6_matching            import MatchingScene
 from scenes.s7_outro               import OutroScene
+from scenes.s7b_credits            import CreditsScene
 
 
 # ---------------------------------------------------------------------------
@@ -101,6 +102,7 @@ class FingerCodeVideo(Scene):
         self._play_subscene(DistanceFormulaScene)
         self._play_subscene(MatchingScene)
         self._play_subscene(OutroScene)
+        self._play_subscene(CreditsScene)
 
     # ---------------------------------------------------------------------- #
     # Helper                                                                   #
